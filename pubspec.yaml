@@ -21,10 +21,9 @@ dependencies:
     sdk: flutter
   provider: ^4.0.0
   flutter_launcher_icons: ^0.7.5
-  bloc: ^4.0.0
   flutter_bloc: ^4.0.0
   meta: ^1.1.6
-  equatable: ^0.1.6
+  equatable: ^1.0.0
   flutter_secure_storage: ^3.3.3
   http: ^0.12.0+04
   # The following adds the Cupertino Icons font to your application.
