@@ -32,7 +32,7 @@ class UserRepository {
   await Future.delayed(Duration(seconds: 1));
   debugPrint('==token deleted==');
   String token = await _storage.read(key: 'access');
-  return token.isEmpty? false : true;
+  return false;
   }
 
 
