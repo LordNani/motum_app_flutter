@@ -60,6 +60,7 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           InkWell(
+
                             child: Text(
                               "Forgot password?",
                               style: TextStyle(
@@ -67,7 +68,10 @@ class LoginScreen extends StatelessWidget {
                                   fontSize: 15,
                                   letterSpacing: 0.15,
                                   decoration: TextDecoration.underline),
-                            ),
+                            ),onTap: () async {
+                              String tok = await UserRepository.storage.read(key : 'awoind');
+                            print(tok);
+                          },
                           )
                         ],
                       ),
@@ -168,6 +172,7 @@ class _LoginFormState extends State<LoginForm> {
       );
     }
 
+
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFailure) {
@@ -203,6 +208,7 @@ class _LoginFormState extends State<LoginForm> {
                   child: TextFormField(
                     controller: _usernameController,
                     keyboardType: TextInputType.text,
+
                     style: TextStyle(fontFamily: "Roboto", fontSize: 20),
                     decoration: InputDecoration(
                       labelText: "Login",

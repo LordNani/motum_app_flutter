@@ -1,3 +1,4 @@
+import 'package:Motum/models/UserRepository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -11,12 +12,12 @@ class AppStarted extends AuthenticationEvent {
 }
 
 class LoggedIn extends AuthenticationEvent {
-  final String token;
+  final TokenPair token;
 
   const LoggedIn({@required this.token});
 
   @override
-  String toString() => 'LoggedIn { token : $token}';
+  String toString() => 'LoggedIn { token : $token';
 
   @override
   List<Object> get props => [token];
