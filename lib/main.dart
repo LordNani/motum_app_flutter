@@ -72,6 +72,13 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'MOTUM',
+      theme: ThemeData(
+        floatingActionButtonTheme:
+            FloatingActionButtonThemeData(backgroundColor: Color(0xF85C26FF)),
+        fontFamily: 'Ubuntu',
+      ),
+      onGenerateRoute: RouteGenerator.generateRoute,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthUninitialized) {
@@ -96,6 +103,6 @@ class App extends StatelessWidget {
 class LoadingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Center(
-    child: CircularProgressIndicator(),
-  );
+        child: CircularProgressIndicator(),
+      );
 }
