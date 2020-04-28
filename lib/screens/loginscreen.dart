@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
                     image: AssetImage('assets/images/MotumLogo.png'),
                   ),
                 ),
-                Text("Вход",
+                Text("Sign In",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 45,
@@ -295,10 +295,11 @@ class _LoginFormState extends State<LoginForm> {
                   child: RaisedButton(
                     elevation: 6,
                     color: _orangeColor,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                     onPressed:
                         state is! LoginLoading ? _onLoginButtonPressed : null,
                     child: Text(
-                      'Login',
+                      'Log in',
                       style: TextStyle(
                           fontFamily: 'Ubuntu',
                           fontWeight: FontWeight.w500,

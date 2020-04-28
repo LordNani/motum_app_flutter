@@ -32,106 +32,33 @@ class SignUpScreen extends StatelessWidget {
             child: ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.015,
-                      left: 15,
-                      right: 15),
-                  child: Image(
-                    fit: BoxFit.contain,
-                    image: AssetImage('assets/images/MotumLogo.png'),
-                  ),
+                  margin: EdgeInsets.only(top: 40,bottom: 40),
+                  child: Text("Sign Up",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 45,
+                        fontFamily: "Ubuntu",
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromRGBO(30, 31, 32, 1.0),
+                      )),
                 ),
-                Text("Вход",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 45,
-                      fontFamily: "Ubuntu",
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromRGBO(30, 31, 32, 1.0),
-                    )),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     LoginForm(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.only(left: 10, right: 10),
-                          width: 130,
-                          child: Divider(
-                            thickness: 1,
-                            color: Color.fromRGBO(30, 31, 32, 1),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 60,
-                        ),
-                        Text(
-                          " or login using ",
-                          style: TextStyle(
-                              color: Color.fromRGBO(0, 0, 0, 0.6),
-                              fontFamily: 'Ubuntu',
-                              fontSize: 16),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 10, right: 10),
-                          width: 130,
-                          child: Divider(
-                            thickness: 1,
-                            color: Color.fromRGBO(30, 31, 32, 1),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(2),
-                      padding: EdgeInsets.all(10),
-                      width: 130,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: _orangeColor,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Image(
-                            image: AssetImage(
-                              'assets/images/google.png',
-                            ),
-                            fit: BoxFit.fill,
-                            width: 25,
-                            height: 25,
-                          ),
-                          Text(
-                            "Google",
-                            style: TextStyle(
-                                fontFamily: 'Ubuntu',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 22),
-                          )
-                        ],
-                      ),
-                    ),
                     Container(
                       margin: EdgeInsets.all(8),
-                      width: MediaQuery.of(context).size.width/5*3.5,
+                      width: MediaQuery.of(context).size.width / 5 * 3,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          Text("Don't have an account?",
+                          Text("Have an account?",
                               style: TextStyle(
-                                fontFamily: "Ubuntu",
-                                fontSize: 19,
-                              )),
+                                  fontSize: 19, fontWeight: FontWeight.w500)),
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: InkWell(
-                              child: Text("Sign Up",
+                              child: Text("Sign In",
                                   style: TextStyle(
                                       color: _orangeColor,
                                       fontSize: 19,
@@ -159,6 +86,8 @@ class _LoginFormState extends State<LoginForm> {
   final Color _orangeColor = Color.fromRGBO(248, 92, 38, 1);
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _passwordConfirmController = TextEditingController();
+  bool _policyCheckbox = false;
   bool _obscurePassword = true;
 
   void _showPassword() {
@@ -192,120 +121,162 @@ class _LoginFormState extends State<LoginForm> {
         builder: (context, state) {
           return Form(
               child: Stack(
-                overflow: Overflow.visible,
-                children: <Widget>[
-                  Positioned(
-                    bottom: 100,
-                    left: MediaQuery.of(context).size.width / 2 - 15,
-                    child: Container(
-                      alignment: Alignment.bottomCenter,
-                      child: state is LoginLoading
-                          ? CircularProgressIndicator()
-                          : null,
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Positioned(
+                bottom: 100,
+                left: MediaQuery.of(context).size.width / 2 - 15,
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  child: state is LoginLoading
+                      ? CircularProgressIndicator()
+                      : null,
+                ),
+              ),
+              Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+                  Widget>[
+                Container(
+                  margin:
+                      EdgeInsets.only(top: 30, bottom: 0, right: 30, left: 30),
+                  child: TextFormField(
+                    controller: _usernameController,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontFamily: "Roboto", fontSize: 20),
+                    decoration: InputDecoration(
+                      labelText: "Login",
+                      contentPadding: EdgeInsets.only(
+                          left: 15, right: 15, top: 20, bottom: 20),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(2),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(218, 218, 218, 1),
+                              width: 2)),
+                      labelStyle:
+                          TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
+                      alignLabelWithHint: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(2),
+                          borderSide:
+                              BorderSide(color: _orangeColor, width: 2)),
                     ),
                   ),
-                  Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-                      Widget>[
-                    Container(
-                      margin:
+                ),
+                //PASSWORD
+                Container(
+                  margin:
                       EdgeInsets.only(top: 30, bottom: 0, right: 30, left: 30),
-                      child: TextFormField(
-                        controller: _usernameController,
-                        keyboardType: TextInputType.text,
-                        style: TextStyle(fontFamily: "Roboto", fontSize: 20),
-                        decoration: InputDecoration(
-                          labelText: "Login",
-                          contentPadding: EdgeInsets.only(
-                              left: 15, right: 15, top: 20, bottom: 20),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(2),
-                              borderSide: BorderSide(
-                                  color: Color.fromRGBO(218, 218, 218, 1),
-                                  width: 2)),
-                          labelStyle:
+                  child: TextFormField(
+                    controller: _passwordController,
+                    obscureText: _obscurePassword,
+                    style: TextStyle(fontFamily: "Roboto", fontSize: 20),
+                    decoration: InputDecoration(
+                      suffixIcon: GestureDetector(
+                        onTap: _showPassword,
+                        child: Icon(_obscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                      ),
+                      labelText: "Password",
+                      contentPadding: EdgeInsets.only(
+                          left: 15, right: 15, top: 20, bottom: 20),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(2),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(218, 218, 218, 1),
+                              width: 2)),
+                      labelStyle:
                           TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
-                          alignLabelWithHint: true,
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(2),
-                              borderSide:
+                      alignLabelWithHint: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(2),
+                          borderSide:
                               BorderSide(color: _orangeColor, width: 2)),
-                        ),
-                      ),
                     ),
-                    //PASSWORD
-                    Container(
-                      margin:
-                      EdgeInsets.only(top: 30, bottom: 0, right: 30, left: 30),
-                      child: TextFormField(
-                        controller: _passwordController,
-                        obscureText: _obscurePassword,
-                        style: TextStyle(fontFamily: "Roboto", fontSize: 20),
-                        decoration: InputDecoration(
-                          suffixIcon: GestureDetector(
-                            onTap: _showPassword,
-                            child: Icon(_obscurePassword
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                          ),
-                          labelText: "Password",
-                          contentPadding: EdgeInsets.only(
-                              left: 15, right: 15, top: 20, bottom: 20),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(2),
-                              borderSide: BorderSide(
-                                  color: Color.fromRGBO(218, 218, 218, 1),
-                                  width: 2)),
-                          labelStyle:
+                  ),
+                ),
+                //PASSWORD CONFIRM
+                Container(
+                  margin:
+                      EdgeInsets.only(top: 30, bottom: 10, right: 30, left: 30),
+                  child: TextFormField(
+                    controller: _passwordConfirmController,
+                    obscureText: _obscurePassword,
+                    style: TextStyle(fontFamily: "Roboto", fontSize: 20),
+                    decoration: InputDecoration(
+                      suffixIcon: GestureDetector(
+                        onTap: _showPassword,
+                        child: Icon(_obscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                      ),
+                      labelText: "Confirm Password",
+                      contentPadding: EdgeInsets.only(
+                          left: 15, right: 15, top: 20, bottom: 20),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(2),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(218, 218, 218, 1),
+                              width: 2)),
+                      labelStyle:
                           TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
-                          alignLabelWithHint: true,
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(2),
-                              borderSide:
+                      alignLabelWithHint: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(2),
+                          borderSide:
                               BorderSide(color: _orangeColor, width: 2)),
-                        ),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Checkbox(
+                        activeColor: Colors.redAccent,
+                        value: _policyCheckbox,
+                        onChanged: (val) {
+                          setState(() {
+                            _policyCheckbox = val;
+                          });
+                        },
+                      ),
+                      Text(
+                        "I agree with terms and conditions",
+                        style: TextStyle(
+                            letterSpacing: 0.15,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 10, bottom: 10),
+                  child: ButtonTheme(
+                    height: 45,
+                    minWidth: MediaQuery.of(context).size.width * 0.85,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      elevation: 6,
+                      color: _orangeColor,
+                      onPressed:
+                          state is! LoginLoading ? _onLoginButtonPressed : null,
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(
+                            fontFamily: 'Ubuntu',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                            color: Colors.white),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 30, left: 30, top: 20, bottom: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          InkWell(
-                            child: Text(
-                              "Forgot password?",
-                              style: TextStyle(
-                                  color: _orangeColor,
-                                  fontSize: 15,
-                                  letterSpacing: 0.15,
-                                  decoration: TextDecoration.underline),
-                            ),
-                            onTap: () {},
-                          )
-                        ],
-                      ),
-                    ),
-                    ButtonTheme(
-                      height: 45,
-                      minWidth: MediaQuery.of(context).size.width * 0.85,
-                      child: RaisedButton(
-                        elevation: 6,
-                        color: _orangeColor,
-                        onPressed:
-                        state is! LoginLoading ? _onLoginButtonPressed : null,
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                              fontFamily: 'Ubuntu',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ]),
-                ],
-              ));
+                  ),
+                ),
+              ]),
+            ],
+          ));
         },
       ),
     );
